@@ -24,6 +24,15 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'gooodd morninnggggg vietnam' });
 });
 
+let expressResponse = {}
+app.enable('trust proxy')
+app.get('/api/whoami', function (req, res) {
+  expressResponse['ipaddress'] = req.ip
+  expressResponse['language'] = req.get('Accept-Language')
+  expressResponse['software'] = req.get('User-Agent')
+    res.json(expressResponse)
+}); 
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
